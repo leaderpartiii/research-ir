@@ -1,0 +1,10 @@
+(module
+  (def factorial
+    (pi (n (const Nat)) (const Nat))
+    (lam (n (const Nat))
+      (case (var n)
+        (alt (pcon zero ())
+          (lit 1 nat))
+        (alt (pcon succ (m))
+          (app (app (const mul) (var n))
+            (app (const factorial) (var m))))))))

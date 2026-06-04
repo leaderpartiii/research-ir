@@ -1,0 +1,1 @@
+(module (def add (const Nat->Nat->Nat) (lam (a (const Nat)) (lam (b (const Nat)) (case (var a) (alt (pcon Zero ()) (var b)) (alt (pcon Succ (m)) (app (const Succ) (app (app (var add) (var m)) (var b)))))))) (def inc (const Nat->Nat) (lam (n (const Nat)) (app (const Succ) (var n)))))

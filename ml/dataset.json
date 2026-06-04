@@ -1,0 +1,232 @@
+[
+  {
+    "name": "idB",
+    "haskell_ir": "(module (def idB (const forall{p}.p->p) (lam (b (const p_aJI)) (var b))))",
+    "lean_src": "def idB (b : Bool) : Bool := b"
+  },
+  {
+    "name": "notB",
+    "haskell_ir": "(module (def notB (const Bool->Bool) (lam (b (const Bool)) (case (var b) (alt (pcon False ()) (const True)) (alt (pcon True ()) (const False))))))",
+    "lean_src": "def notB (b : Bool) : Bool := match b with | true => false | false => true"
+  },
+  {
+    "name": "constTrue",
+    "haskell_ir": "(module (def constTrue (const forall{p}.p->Bool) (lam (b (const p_aHz)) (const True))))",
+    "lean_src": "def constTrue (b : Bool) : Bool := true"
+  },
+  {
+    "name": "constFalse",
+    "haskell_ir": "(module (def constFalse (const forall{p}.p->Bool) (lam (b (const p_aHm)) (const False))))",
+    "lean_src": "def constFalse (b : Bool) : Bool := false"
+  },
+  {
+    "name": "andB",
+    "haskell_ir": "(module (def andB (const Bool->Bool->Bool) (lam (a (const Bool)) (lam (b (const Bool)) (case (var a) (alt (pcon False ()) (const False)) (alt (pcon True ()) (var b)))))))",
+    "lean_src": "def andB (a b : Bool) : Bool := match a with | true => b | false => false"
+  },
+  {
+    "name": "orB",
+    "haskell_ir": "(module (def orB (const Bool->Bool->Bool) (lam (a (const Bool)) (lam (b (const Bool)) (case (var a) (alt (pcon False ()) (var b)) (alt (pcon True ()) (const True)))))))",
+    "lean_src": "def orB (a b : Bool) : Bool := match a with | true => true | false => b"
+  },
+  {
+    "name": "nandB",
+    "haskell_ir": "(module (def nandB (const Bool->Bool->Bool) (lam (a (const Bool)) (lam (b (const Bool)) (app (var notB) (app (app (var andB) (var a)) (var b)))))))",
+    "lean_src": "def nandB (a b : Bool) : Bool := notB (andB a b)"
+  },
+  {
+    "name": "norB",
+    "haskell_ir": "(module (def norB (const Bool->Bool->Bool) (lam (a (const Bool)) (lam (b (const Bool)) (app (var notB) (app (app (var orB) (var a)) (var b)))))))",
+    "lean_src": "def norB (a b : Bool) : Bool := notB (orB a b)"
+  },
+  {
+    "name": "xorB",
+    "haskell_ir": "(module (def xorB (const Bool->Bool->Bool) (lam (a (const Bool)) (lam (b (const Bool)) (case (var a) (alt (pcon False ()) (var b)) (alt (pcon True ()) (app (var notB) (var b))))))))",
+    "lean_src": "def xorB (a b : Bool) : Bool := match a with | true => notB b | false => b"
+  },
+  {
+    "name": "implyB",
+    "haskell_ir": "(module (def implyB (const Bool->Bool->Bool) (lam (a (const Bool)) (lam (b (const Bool)) (case (var a) (alt (pcon False ()) (const True)) (alt (pcon True ()) (var b)))))))",
+    "lean_src": "def implyB (a b : Bool) : Bool := match a with | true => b | false => true"
+  },
+  {
+    "name": "nimplyB",
+    "haskell_ir": "(module (def nimplyB (const Bool->Bool->Bool) (lam (a (const Bool)) (lam (b (const Bool)) (app (app (var andB) (var a)) (app (var notB) (var b)))))))",
+    "lean_src": "def nimplyB (a b : Bool) : Bool := andB a (notB b)"
+  },
+  {
+    "name": "eqB",
+    "haskell_ir": "(module (def eqB (const Bool->Bool->Bool) (lam (a (const Bool)) (lam (b (const Bool)) (case (var a) (alt (pcon False ()) (app (var notB) (var b))) (alt (pcon True ()) (var b)))))))",
+    "lean_src": "def eqB (a b : Bool) : Bool := match a with | true => b | false => notB b"
+  },
+  {
+    "name": "and3",
+    "haskell_ir": "(module (def and3 (const Bool->Bool->Bool->Bool) (lam (a (const Bool)) (lam (b (const Bool)) (lam (c (const Bool)) (app (app (var andB) (var a)) (app (app (var andB) (var b)) (var c))))))))",
+    "lean_src": "def and3 (a b c : Bool) : Bool := andB a (andB b c)"
+  },
+  {
+    "name": "or3",
+    "haskell_ir": "(module (def or3 (const Bool->Bool->Bool->Bool) (lam (a (const Bool)) (lam (b (const Bool)) (lam (c (const Bool)) (app (app (var orB) (var a)) (app (app (var orB) (var b)) (var c))))))))",
+    "lean_src": "def or3 (a b c : Bool) : Bool := orB a (orB b c)"
+  },
+  {
+    "name": "xor3",
+    "haskell_ir": "(module (def xor3 (const Bool->Bool->Bool->Bool) (lam (a (const Bool)) (lam (b (const Bool)) (lam (c (const Bool)) (app (app (var xorB) (var a)) (app (app (var xorB) (var b)) (var c))))))))",
+    "lean_src": "def xor3 (a b c : Bool) : Bool := xorB a (xorB b c)"
+  },
+  {
+    "name": "majority3",
+    "haskell_ir": "(module (def majority3 (const Bool->Bool->Bool->Bool) (lam (a (const Bool)) (lam (b (const Bool)) (lam (c (const Bool)) (app (app (var orB) (app (app (var andB) (var a)) (var b))) (app (app (var orB) (app (app (var andB) (var a)) (var c))) (app (app (var andB) (var b)) (var c)))))))))",
+    "lean_src": "def majority3 (a b c : Bool) : Bool := orB (andB a b) (orB (andB a c) (andB b c))"
+  },
+  {
+    "name": "inc",
+    "haskell_ir": "(module (def inc (const Nat->Nat) (lam (n (const Nat)) (app (const Succ) (var n)))))",
+    "lean_src": "def inc (n : MyNat) : MyNat := MyNat.succ n"
+  },
+  {
+    "name": "plus2",
+    "haskell_ir": "(module (def plus2 (const Nat->Nat) (lam (n (const Nat)) (app (const Succ) (app (const Succ) (var n))))))",
+    "lean_src": "def plus2 (n : MyNat) : MyNat := MyNat.succ (MyNat.succ n)"
+  },
+  {
+    "name": "plus3",
+    "haskell_ir": "(module (def plus3 (const Nat->Nat) (lam (n (const Nat)) (app (const Succ) (app (const Succ) (app (const Succ) (var n)))))))",
+    "lean_src": "def plus3 (n : MyNat) : MyNat := MyNat.succ (MyNat.succ (MyNat.succ n))"
+  },
+  {
+    "name": "plus4",
+    "haskell_ir": "(module (def plus4 (const Nat->Nat) (lam (n (const Nat)) (app (const Succ) (app (const Succ) (app (const Succ) (app (const Succ) (var n))))))))",
+    "lean_src": "def plus4 (n : MyNat) : MyNat := MyNat.succ (MyNat.succ (MyNat.succ (MyNat.succ n)))"
+  },
+  {
+    "name": "plus5",
+    "haskell_ir": "(module (def plus5 (const Nat->Nat) (lam (n (const Nat)) (app (const Succ) (app (const Succ) (app (const Succ) (app (const Succ) (app (const Succ) (var n)))))))))",
+    "lean_src": "def plus5 (n : MyNat) : MyNat := MyNat.succ (MyNat.succ (MyNat.succ (MyNat.succ (MyNat.succ n))))"
+  },
+  {
+    "name": "plus6",
+    "haskell_ir": "(module (def plus6 (const Nat->Nat) (lam (n (const Nat)) (app (const Succ) (app (const Succ) (app (const Succ) (app (const Succ) (app (const Succ) (app (const Succ) (var n))))))))))",
+    "lean_src": "def plus6 (n : MyNat) : MyNat := MyNat.succ (MyNat.succ (MyNat.succ (MyNat.succ (MyNat.succ (MyNat.succ n)))))"
+  },
+  {
+    "name": "plus7",
+    "haskell_ir": "(module (def plus7 (const Nat->Nat) (lam (n (const Nat)) (app (const Succ) (app (const Succ) (app (const Succ) (app (const Succ) (app (const Succ) (app (const Succ) (app (const Succ) (var n)))))))))))",
+    "lean_src": "def plus7 (n : MyNat) : MyNat := MyNat.succ (MyNat.succ (MyNat.succ (MyNat.succ (MyNat.succ (MyNat.succ (MyNat.succ n))))))"
+  },
+  {
+    "name": "plus8",
+    "haskell_ir": "(module (def plus8 (const Nat->Nat) (lam (n (const Nat)) (app (const Succ) (app (const Succ) (app (const Succ) (app (const Succ) (app (const Succ) (app (const Succ) (app (const Succ) (app (const Succ) (var n))))))))))))",
+    "lean_src": "def plus8 (n : MyNat) : MyNat := MyNat.succ (MyNat.succ (MyNat.succ (MyNat.succ (MyNat.succ (MyNat.succ (MyNat.succ (MyNat.succ n)))))))"
+  },
+  {
+    "name": "idn",
+    "haskell_ir": "(module (def idn (const forall{p}.p->p) (lam (n (const p_aDx)) (var n))))",
+    "lean_src": "def idn (n : MyNat) : MyNat := n"
+  },
+  {
+    "name": "czero",
+    "haskell_ir": "(module (def czero (const forall{p}.p->Nat) (lam (n (const p_aDk)) (const Zero))))",
+    "lean_src": "def czero (n : MyNat) : MyNat := MyNat.zero"
+  },
+  {
+    "name": "predn",
+    "haskell_ir": "(module (def predn (const Nat->Nat) (lam (n (const Nat)) (case (var n) (alt (pcon Zero ()) (const Zero)) (alt (pcon Succ (m)) (var m))))))",
+    "lean_src": "def predn (n : MyNat) : MyNat := match n with | MyNat.zero => MyNat.zero | MyNat.succ m => m"
+  },
+  {
+    "name": "add",
+    "haskell_ir": "(module (def add (const Nat->Nat->Nat) (let (add (const Nat->Nat->Nat) (lam (a (const Nat)) (lam (b (const Nat)) (case (var a) (alt (pcon Zero ()) (var b)) (alt (pcon Succ (m)) (app (const Succ) (app (app (var add) (var m)) (var b)))))))) (var add))))",
+    "lean_src": "def add (a b : MyNat) : MyNat := match a with | MyNat.zero => b | MyNat.succ m => MyNat.succ (add m b)"
+  },
+  {
+    "name": "mul",
+    "haskell_ir": "(module (def mul (const Nat->Nat->Nat) (let (mul (const Nat->Nat->Nat) (lam (a (const Nat)) (lam (b (const Nat)) (case (var a) (alt (pcon Zero ()) (const Zero)) (alt (pcon Succ (m)) (app (app (var add) (var b)) (app (app (var mul) (var m)) (var b)))))))) (var mul))))",
+    "lean_src": "def mul (a b : MyNat) : MyNat := match a with | MyNat.zero => MyNat.zero | MyNat.succ m => add b (mul m b)"
+  },
+  {
+    "name": "double",
+    "haskell_ir": "(module (def double (const Nat->Nat) (lam (n (const Nat)) (app (app (var add) (var n)) (var n)))))",
+    "lean_src": "def double (n : MyNat) : MyNat := add n n"
+  },
+  {
+    "name": "triple",
+    "haskell_ir": "(module (def triple (const Nat->Nat) (lam (n (const Nat)) (app (app (var add) (var n)) (app (app (var add) (var n)) (var n))))))",
+    "lean_src": "def triple (n : MyNat) : MyNat := add n (add n n)"
+  },
+  {
+    "name": "quad",
+    "haskell_ir": "(module (def quad (const Nat->Nat) (lam (n (const Nat)) (app (var double) (app (var double) (var n))))))",
+    "lean_src": "def quad (n : MyNat) : MyNat := double (double n)"
+  },
+  {
+    "name": "addThree",
+    "haskell_ir": "(module (def addThree (const Nat->Nat->Nat->Nat) (lam (a (const Nat)) (lam (b (const Nat)) (lam (c (const Nat)) (app (app (var add) (var a)) (app (app (var add) (var b)) (var c))))))))",
+    "lean_src": "def addThree (a b c : MyNat) : MyNat := add a (add b c)"
+  },
+  {
+    "name": "addFour",
+    "haskell_ir": "(module (def addFour (const Nat->Nat->Nat->Nat->Nat) (lam (a (const Nat)) (lam (b (const Nat)) (lam (c (const Nat)) (lam (d (const Nat)) (app (app (var add) (app (app (var add) (var a)) (var b))) (app (app (var add) (var c)) (var d)))))))))",
+    "lean_src": "def addFour (a b c d : MyNat) : MyNat := add (add a b) (add c d)"
+  },
+  {
+    "name": "square",
+    "haskell_ir": "(module (def square (const Nat->Nat) (lam (n (const Nat)) (app (app (var mul) (var n)) (var n)))))",
+    "lean_src": "def square (n : MyNat) : MyNat := mul n n"
+  },
+  {
+    "name": "cube",
+    "haskell_ir": "(module (def cube (const Nat->Nat) (lam (n (const Nat)) (app (app (var mul) (var n)) (app (app (var mul) (var n)) (var n))))))",
+    "lean_src": "def cube (n : MyNat) : MyNat := mul n (mul n n)"
+  },
+  {
+    "name": "sextuple",
+    "haskell_ir": "(module (def sextuple (const Nat->Nat) (lam (n (const Nat)) (app (app (var add) (app (var triple) (var n))) (app (var triple) (var n))))))",
+    "lean_src": "def sextuple (n : MyNat) : MyNat := add (triple n) (triple n)"
+  },
+  {
+    "name": "mulThree",
+    "haskell_ir": "(module (def mulThree (const Nat->Nat->Nat->Nat) (lam (a (const Nat)) (lam (b (const Nat)) (lam (c (const Nat)) (app (app (var mul) (var a)) (app (app (var mul) (var b)) (var c))))))))",
+    "lean_src": "def mulThree (a b c : MyNat) : MyNat := mul a (mul b c)"
+  },
+  {
+    "name": "addMul",
+    "haskell_ir": "(module (def addMul (const Nat->Nat->Nat) (lam (a (const Nat)) (lam (b (const Nat)) (app (app (var add) (var a)) (app (app (var mul) (var a)) (var b)))))))",
+    "lean_src": "def addMul (a b : MyNat) : MyNat := add a (mul a b)"
+  },
+  {
+    "name": "sumSquares",
+    "haskell_ir": "(module (def sumSquares (const Nat->Nat->Nat) (lam (a (const Nat)) (lam (b (const Nat)) (app (app (var add) (app (var square) (var a))) (app (var square) (var b)))))))",
+    "lean_src": "def sumSquares (a b : MyNat) : MyNat := add (square a) (square b)"
+  },
+  {
+    "name": "doubleInc",
+    "haskell_ir": "(module (def doubleInc (const Nat->Nat) (lam (n (const Nat)) (app (const Succ) (app (var double) (var n))))))",
+    "lean_src": "def doubleInc (n : MyNat) : MyNat := MyNat.succ (double n)"
+  },
+  {
+    "name": "quadInc",
+    "haskell_ir": "(module (def quadInc (const Nat->Nat) (lam (n (const Nat)) (app (const Succ) (app (var quad) (var n))))))",
+    "lean_src": "def quadInc (n : MyNat) : MyNat := MyNat.succ (quad n)"
+  },
+  {
+    "name": "isZero",
+    "haskell_ir": "(module (def isZero (const Nat->Bool) (lam (n (const Nat)) (case (var n) (alt (pcon Zero ()) (const True)) (alt (pcon Succ (m)) (const False))))))",
+    "lean_src": "def isZero (n : MyNat) : Bool := match n with | MyNat.zero => true | MyNat.succ m => false"
+  },
+  {
+    "name": "notZero",
+    "haskell_ir": "(module (def notZero (const Nat->Bool) (lam (n (const Nat)) (app (var notB) (app (var isZero) (var n))))))",
+    "lean_src": "def notZero (n : MyNat) : Bool := notB (isZero n)"
+  },
+  {
+    "name": "isOne",
+    "haskell_ir": "(module (def isOne (const Nat->Bool) (lam (n (const Nat)) (case (var n) (alt (pcon Zero ()) (const False)) (alt (pcon Succ (m)) (app (var isZero) (var m)))))))",
+    "lean_src": "def isOne (n : MyNat) : Bool := match n with | MyNat.zero => false | MyNat.succ m => isZero m"
+  },
+  {
+    "name": "isTwo",
+    "haskell_ir": "(module (def isTwo (const Nat->Bool) (lam (n (const Nat)) (case (var n) (alt (pcon Zero ()) (const False)) (alt (pcon Succ (m)) (app (var isOne) (var m)))))))",
+    "lean_src": "def isTwo (n : MyNat) : Bool := match n with | MyNat.zero => false | MyNat.succ m => isOne m"
+  }
+]
