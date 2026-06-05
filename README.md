@@ -17,7 +17,7 @@ C++/Java/Rust/Go переводят друг в друга, используя *
 
 ## Результаты
 
-Всё воспроизводится в **[`notebooks/demo.ipynb`](notebooks/demo.ipynb)** и  **[`notebooks/research-ir-notebook.ipynb`](notebooks/research-ir-notebook.ipynb)** — открой и **Run All**.
+Всё воспроизводится в **[`notebooks/demo.ipynb`](notebooks/demo.ipynb)** и  **[`notebooks/research-ir-notebook.ipynb`](notebooks/research-ir-notebook.ipynb)**(более полный ноутбук) — откройте и запустите с помощью **Run All**.
 Ноутбук уже содержит **сохранённые outputs** последнего прогона; цифры ниже — оттуда.
 
 ### Главный результат — обучение перевода `IR → код`
