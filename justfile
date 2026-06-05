@@ -65,3 +65,7 @@ train:
 # Дообучить предобученный CodeT5-small (сильнее, нужен интернет для весов).
 train-t5:
     PYTHONPATH=. poetry run python ml/train_t5.py
+
+# Сгенерировать самодостаточный Kaggle-ноутбук (весь код инлайн, нужен только dataset.json).
+kaggle-nb:
+    poetry run python ml/make_kaggle_notebook.py
